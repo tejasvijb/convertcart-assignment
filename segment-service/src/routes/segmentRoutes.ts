@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { evaluateRules } from "../utils/evaluateRules.js";
 import { fetchProducts } from "../utils/fetchProduct.js";
+import { ZodError } from "zod";
 
 const router = Router();
 
@@ -17,6 +18,10 @@ router.post("/evaluate", async (req, res) => {
 
         res.json({ matched: result.length, products: result });
     } catch (err: any) {
+        if (err instanceof ZodError) {
+            res.status(400).json({ zoderror: err.issues });
+        }
+
         res.status(500).json({ error: err.message });
     }
 });
