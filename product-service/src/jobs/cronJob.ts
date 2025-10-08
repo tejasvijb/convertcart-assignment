@@ -79,7 +79,7 @@ export const initialLoadDatabase = async (): Promise<void> => {
  */
 export const startCron = () => {
     // Schedule job to run every hour at minute 0
-    cron.schedule("0 * * * *", async () => {
+    cron.schedule("* * * * *", async () => {
         try {
             console.log("⏰ Running scheduled hourly WooCommerce ingestion...");
             await syncProductsFromWoo();
