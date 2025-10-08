@@ -17,6 +17,7 @@ export default function Home() {
     try {
       setLoading(true);
       setError("");
+      console.log("Fetching products from:", process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL);
       const response = await axiosClient.get(`${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products`);
       setProducts(response.data);
     } catch (err) {
