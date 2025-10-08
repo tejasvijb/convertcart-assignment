@@ -38,7 +38,8 @@ function parseRules(text: string): Rule[] {
         .filter(Boolean);
 
     return lines.map((line) => {
-        const match = line.match(/^(\w+)\s*(=|!=|>|<|>=|<=)\s*(.+)$/);
+        const match = line.match(/^(\w+)\s*(=|!=|>=|<=|>|<)\s*(.+)$/);
+
         if (!match) throw new Error(`Invalid rule format: ${line}`);
 
         const field = match[1] as Rule["field"];
@@ -82,6 +83,11 @@ function parseRules(text: string): Rule[] {
  */
 function applyRule(product: Product, rule: Rule): boolean {
     const fieldValue = (product as any)[rule.field];
+
+    console.log(`Applying rule on product ${product.id}:`, {
+        rule,
+        fieldValue,
+    });
 
     switch (rule.operator) {
         case "=":
