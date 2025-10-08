@@ -6,16 +6,18 @@ import segmentRoutes from "./routes/segmentRoutes.js";
 dotenv.config();
 
 const app = express();
-app.use(cors({
-  origin: [
-    "https://convertcart-assignment-product-service.onrender.com",
-    "https://convertcart-assignment.onrender.com",
-    // Keep any existing origins
-    "http://localhost:3000",
-    "http://localhost:4001"
-  ],
-  credentials: true
-}));
+app.use(
+    cors({
+        origin: [
+            "https://convertcart-assignment-product-service.onrender.com",
+            "https://convertcart-assignment.onrender.com",
+            // Keep any existing origins
+            "http://localhost:3000",
+            "http://localhost:4001",
+        ],
+        credentials: true,
+    })
+);
 app.use(express.json());
 
 app.use("/segments", segmentRoutes);
