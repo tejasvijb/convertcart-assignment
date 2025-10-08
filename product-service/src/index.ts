@@ -8,6 +8,7 @@ import { initialLoadDatabase, startCron } from "./jobs/cronJob.js";
 dotenv.config();
 
 const app = express();
+
 app.use(
     cors({
         origin: [
@@ -16,6 +17,8 @@ app.use(
             "http://localhost:3000",
         ],
         credentials: true,
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        allowedHeaders: "Content-Type, Authorization",
     })
 );
 app.use(express.json());
