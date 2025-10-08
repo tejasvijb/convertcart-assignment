@@ -8,7 +8,15 @@ import { initialLoadDatabase, startCron } from "./jobs/cronJob.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+    cors({
+        origin: [
+            "https://convertcart-assignment-product-service.onrender.com",
+            "http://localhost:3000",
+        ],
+        credentials: true,
+    })
+);
 app.use(express.json());
 
 app.use("/products", productRoutes);
@@ -20,13 +28,13 @@ const initApp = async () => {
     try {
         // Connect to the database
         await connectDB();
-        
+
         // Load initial data from WooCommerce
         await initialLoadDatabase();
-        
+
         // Start the cron job for regular updates
         startCron();
-        
+
         // Start the Express server
         app.listen(PORT, () => {
             console.log(`🚀 Product service running on port ${PORT}`);
