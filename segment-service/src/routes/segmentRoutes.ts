@@ -5,6 +5,39 @@ import { ZodError } from "zod";
 
 const router = Router();
 
+/**
+ * @swagger
+ * /segments/evaluate:
+ *   post:
+ *     summary: Evaluate segment rules against products
+ *     description: Evaluate given rules against products and return matching products
+ *     tags: [Segments]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SegmentEvaluateRequest'
+ *     responses:
+ *       200:
+ *         description: Products matching the rules
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SegmentEvaluateResponse'
+ *       400:
+ *         description: Bad request, validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post("/evaluate", async (req, res) => {
     try {
         const { rules } = req.body; // text input

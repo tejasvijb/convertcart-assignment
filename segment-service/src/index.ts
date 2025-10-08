@@ -1,7 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import swaggerUi from "swagger-ui-express";
 import segmentRoutes from "./routes/segmentRoutes.js";
+import { swaggerSpec } from "./docs/swagger.js";
 
 dotenv.config();
 
@@ -21,6 +23,14 @@ app.use(
     })
 );
 app.use(express.json());
+
+// Swagger API Documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// Route to get the OpenAPI specification in JSON format
+app.get("/api-docs.json", (_req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    res.send(swaggerSpec);
+});
 
 app.use("/segments", segmentRoutes);
 
