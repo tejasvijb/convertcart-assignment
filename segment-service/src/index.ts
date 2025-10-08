@@ -9,6 +9,7 @@ const app = express();
 app.use(cors({
   origin: [
     "https://convertcart-assignment-product-service.onrender.com",
+    "https://convertcart-assignment.onrender.com",
     // Keep any existing origins
     "http://localhost:3000",
     "http://localhost:4001"
