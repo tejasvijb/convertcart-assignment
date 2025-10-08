@@ -7,9 +7,11 @@ import {
 } from "@/components/ui/dialog"
 import SegmentEditor from "./SegmentEditor"
 import { Filter } from "lucide-react"
+import { Product } from "@/types/product"
+import { Dispatch, SetStateAction } from "react"
 
 
-export default function SegmentEditorDialog() {
+export default function SegmentEditorDialog({ setProducts, onReset }: { setProducts: Dispatch<SetStateAction<Product[]>>, onReset: () => void }) {
   return (
     <Dialog>
       <form>
@@ -25,7 +27,7 @@ export default function SegmentEditorDialog() {
 
         <DialogContent>
           <DialogTitle className="text-xl font-semibold">Define Filter Products</DialogTitle>
-          <SegmentEditor />
+          <SegmentEditor setProducts={setProducts} onReset={onReset} />
 
         </DialogContent>
       </form>

@@ -6,6 +6,7 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
+// Generic axios client without baseURL for flexibility
 const axiosClient = axios.create({
     headers: {
         "Content-Type": "application/json",

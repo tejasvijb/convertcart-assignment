@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import ProductCard from "./components/ProductCard";
 import { Product } from "@/types/product";
 import axiosClient from "@/lib/utils";
-import { Filter, RefreshCcw, RotateCcw } from "lucide-react";
+import { RefreshCcw } from "lucide-react";
 import SegmentEditorDialog from "./components/SegmentEditorDialog";
 import { Button } from "@/components/ui/button";
 
@@ -13,20 +13,21 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        const response = await axiosClient.get(`${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products`);
-        setProducts(response.data);
-      } catch (err) {
-        console.error("Error fetching products:", err);
-        setError("Failed to load products. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      setError("");
+      const response = await axiosClient.get(`${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}`);
+      setProducts(response.data);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+      setError("Failed to load products. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchProducts();
   }, []);
 
@@ -36,10 +37,10 @@ export default function Home() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">Products</h1>
           <div className="flex gap-2">
-            <SegmentEditorDialog />
+            <SegmentEditorDialog setProducts={setProducts} onReset={fetchProducts} />
 
-            <Button variant="outline">
-              <RefreshCcw className="h-4 w-4" />
+            <Button variant="outline" onClick={fetchProducts} disabled={loading}>
+              <RefreshCcw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
               Reset
             </Button>
           </div>
