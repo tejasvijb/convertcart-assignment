@@ -17,7 +17,7 @@ export default function Home() {
     try {
       setLoading(true);
       setError("");
-      const baseurl = process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL || "https://convertcart-assignment-product-service.onrender.com";
+      const baseurl = process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL || "https://convertcart-product-service.onrender.com";
       const response = await axiosClient.get(`${baseurl}/products`);
       setProducts(response.data);
     } catch (err) {
