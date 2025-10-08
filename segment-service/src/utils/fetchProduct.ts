@@ -9,9 +9,12 @@ export const fetchProducts = async (): Promise<Product[]> => {
             );
         }
 
-        const res = await axios.get(process.env.PRODUCT_SERVICE_URL, {
-            timeout: 10000, // 10 seconds timeout
-        });
+        const res = await axios.get(
+            `${process.env.PRODUCT_SERVICE_URL}/products`,
+            {
+                timeout: 10000, // 10 seconds timeout
+            }
+        );
 
         return res.data;
     } catch (error) {

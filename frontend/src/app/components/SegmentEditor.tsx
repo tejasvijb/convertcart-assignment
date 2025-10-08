@@ -71,7 +71,7 @@ on_sale = true`}
         </div>
 
         <p className="text-xs text-gray-500">
-          Examples: price {`>`} 5000, category = Smartphones, stock_status = instock
+          Examples: price {`>`} 5000, category = Smartphones, stock_status = instock, on_sale = true
         </p>
 
         <div className="flex gap-3">
