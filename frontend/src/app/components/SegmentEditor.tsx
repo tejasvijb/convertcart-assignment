@@ -22,7 +22,7 @@ export default function SegmentEditor({ setProducts, onReset }: { setProducts: D
       setError(null);
 
       // Since our segmentServiceClient already has the baseURL set
-      const baseurl = process.env.NEXT_PUBLIC_SEGMENT_SERVICE_URL
+      const baseurl = process.env.NEXT_PUBLIC_SEGMENT_SERVICE_URL || "https://convertcart-assignment-segment-service.onrender.com";
       const response = await axiosClient.post(`${baseurl}/segments/evaluate`, { rules: filterText });
 
       setProducts(response.data.products);
