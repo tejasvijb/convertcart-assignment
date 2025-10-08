@@ -12,7 +12,6 @@ RUN npm ci
 # Build the application
 FROM deps AS builder
 COPY . .
-# Make sure the next.config.js has output: 'standalone'
 RUN npm run build
 
 # Production image
@@ -26,16 +25,10 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy built application - improved file copying strategy
+# Copy built application
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/next.config.ts ./next.config.ts
-
-# If standalone output exists, use it, otherwise use the regular structure
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./standalone
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./standalone/.next/static || true
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
@@ -43,5 +36,5 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-# Start the application - fallback to different start options
-CMD ["sh", "-c", "if [ -f standalone/server.js ]; then node standalone/server.js; else npm start; fi"]
+# Start the application
+CMD ["node", "server.js"]
