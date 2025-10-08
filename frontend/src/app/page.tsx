@@ -17,8 +17,8 @@ export default function Home() {
     try {
       setLoading(true);
       setError("");
-      console.log("Fetching products from:", process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL);
-      const response = await axiosClient.get(`${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products`);
+      const baseurl = process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL || 'https://convertcart-assignment-product-service.onrender.com';
+      const response = await axiosClient.get(`${baseurl}/products`);
       setProducts(response.data);
     } catch (err) {
       console.error("Error fetching products:", err);
