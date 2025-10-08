@@ -12,7 +12,6 @@ const app = express();
 app.use(
     cors({
         origin: [
-            "https://convertcart-assignment-product-service.onrender.com",
             "https://convertcart-assignment.onrender.com",
             "http://localhost:3000",
         ],
